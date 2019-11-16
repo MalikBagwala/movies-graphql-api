@@ -1,0 +1,4 @@
+# Generated Code
+node_modules/
+# Environment Variables
+.env
