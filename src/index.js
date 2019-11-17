@@ -1,7 +1,8 @@
 const { ApolloServer } = require("apollo-server");
 const mongoose = require("mongoose");
 import schemaGraphql from "./schema.graphql";
-mongoose.connect("mongodb://localhost:27017/movies-graphql-api", {
+import links from "./links";
+mongoose.connect(links.development, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
