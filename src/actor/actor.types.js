@@ -9,8 +9,8 @@ export default gql`
   }
   input ActorInput {
     id: String
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     age: Int
   }
 `;

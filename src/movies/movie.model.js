@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const movieSchema = new mongoose.Schema({
+const movieSchema = new Schema({
   title: {
     type: String,
     minlength: 2,
@@ -11,6 +11,11 @@ const movieSchema = new mongoose.Schema({
     type: Number,
     min: 1800,
     max: new Date().getFullYear()
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 10
   },
   genres: [
     {
@@ -25,6 +30,8 @@ const movieSchema = new mongoose.Schema({
     }
   ]
 });
+
+movieSchema.index({ title: "text", year: "text" });
 
 const Movie = mongoose.model("Movie", movieSchema);
 

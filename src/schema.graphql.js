@@ -11,9 +11,9 @@ import movieTypes from "./movies/movie.types";
 
 const Query = gql`
   type Query {
-    allActors: [ActorType]
-    allMovies: [MovieType]
-    allGenres: [GenreType]
+    allActors(search: String, first: Int, skip: Int): [ActorType]
+    allMovies(search: String, first: Int, skip: Int): [MovieType]
+    allGenres(search: String, first: Int, skip: Int): [GenreType]
     genre(id: String): GenreType
     movie(id: String): MovieType
     actor(id: String): ActorType
@@ -28,14 +28,18 @@ const Query = gql`
 
 const resolvers = {
   Query: {
-    allGenres() {
-      return Genre.find();
+    allGenres(_, { first, skip }) {
+      return Genre.find()
+        .limit(first)
+        .skip(skip);
     },
     allActors() {
       return Actor.find();
     },
-    allMovies() {
-      return Movie.find();
+    allMovies(_, { first, skip }) {
+      return Movie.find()
+        .limit(first)
+        .skip(skip);
     },
     movie(_, { id }) {
       return Movie.findById(id);
@@ -69,8 +73,9 @@ const resolvers = {
         return Movie.create(movie);
       }
     },
-    deleteGenre(_, { id }) {
-      if (id) Genre.findByIdAndDelete(id);
+    async deleteGenre(_, { id }) {
+      const deletedGenre = await Genre.findByIdAndRemove(id);
+      return deletedGenre;
     }
   }
 };

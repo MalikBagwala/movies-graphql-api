@@ -5,13 +5,15 @@ export default gql`
     id: String
     title: String
     year: Int
+    rating: Float
     genres: [GenreType]
     actors: [ActorType]
   }
   input MovieInput {
     id: String
-    title: String!
+    title: String
     year: Int
+    rating: Float
     genres: [String!]
     actors: [String!]
   }
