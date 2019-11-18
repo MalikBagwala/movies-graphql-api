@@ -23,6 +23,8 @@ const Query = gql`
     addEditMovie(movie: MovieInput): MovieType
     addEditGenre(id: String, name: String!): GenreType
     deleteGenre(id: String): GenreType
+    deleteMovie(id: String): MovieType
+    deleteActor(id: String): ActorType
   }
 `;
 
@@ -76,6 +78,14 @@ const resolvers = {
     async deleteGenre(_, { id }) {
       const deletedGenre = await Genre.findByIdAndRemove(id);
       return deletedGenre;
+    },
+    async deleteActor(_, { id }) {
+      const deletedActor = await Actor.findByIdAndRemove(id);
+      return deletedActor;
+    },
+    async deleteMovie(_, { id }) {
+      const deletedMovie = await Movie.findByIdAndRemove(id);
+      return deletedMovie;
     }
   }
 };
