@@ -1,96 +1,29 @@
 import { gql } from "apollo-server";
 import { makeExecutableSchema } from "graphql-tools";
 import { merge } from "lodash";
-import Actor from "./actor/actor.model";
 import actorResolvers from "./actor/actor.resolvers";
 import actorTypes from "./actor/actor.types";
-import Genre from "./genre/genre.model";
 import genreTypes from "./genre/genre.types";
-import Movie from "./movies/movie.model";
 import movieResolvers from "./movies/movie.resolvers";
 import movieTypes from "./movies/movie.types";
-
-const Query = gql`
+import { dateTypes } from "./scalars/date.scalar";
+import userResolvers from "./user/user.resolvers";
+import userTypes from "./user/user.types";
+// interface MutationResponse {
+//   code: String!
+//   success: Boolean!
+//   message: String!
+// }
+const Types = gql`
   type Query {
-    allActors(search: String, first: Int, skip: Int): [ActorType]
-    allMovies(search: String, first: Int, skip: Int): [MovieType]
-    allGenres(search: String, first: Int, skip: Int): [GenreType]
-    genre(id: String): GenreType
-    movie(id: String): MovieType
-    actor(id: String): ActorType
+    _empty: String
   }
   type Mutation {
-    addEditActor(actor: ActorInput): ActorType
-    addEditMovie(movie: MovieInput): MovieType
-    addEditGenre(id: String, name: String!): GenreType
-    deleteGenre(id: String): GenreType
-    deleteMovie(id: String): MovieType
-    deleteActor(id: String): ActorType
+    _empty: String
   }
 `;
 
-const resolvers = {
-  Query: {
-    allGenres(_, { first, skip }) {
-      return Genre.find()
-        .limit(first)
-        .skip(skip);
-    },
-    allActors() {
-      return Actor.find();
-    },
-    allMovies(_, { first, skip }) {
-      return Movie.find()
-        .limit(first)
-        .skip(skip);
-    },
-    movie(_, { id }) {
-      return Movie.findById(id);
-    },
-    genre(_, { id }) {
-      return Genre.findById(id);
-    },
-    actor(_, { id }) {
-      return Actor.findById(id);
-    }
-  },
-  Mutation: {
-    addEditActor(_, { actor }) {
-      if (actor.id) {
-        return Actor.findByIdAndUpdate(id, actor);
-      } else {
-        return Actor.create(actor);
-      }
-    },
-    addEditGenre(_, { id, name }) {
-      if (id) {
-        return Genre.findByIdAndUpdate(id, { name });
-      } else {
-        return Genre.create({ name });
-      }
-    },
-    addEditMovie(_, { movie }) {
-      if (movie.id) {
-        return Movie.findByIdAndUpdate(movie.id, movie);
-      } else {
-        return Movie.create(movie);
-      }
-    },
-    async deleteGenre(_, { id }) {
-      const deletedGenre = await Genre.findByIdAndRemove(id);
-      return deletedGenre;
-    },
-    async deleteActor(_, { id }) {
-      const deletedActor = await Actor.findByIdAndRemove(id);
-      return deletedActor;
-    },
-    async deleteMovie(_, { id }) {
-      const deletedMovie = await Movie.findByIdAndRemove(id);
-      return deletedMovie;
-    }
-  }
-};
 export default makeExecutableSchema({
-  typeDefs: [Query, genreTypes, movieTypes, actorTypes],
-  resolvers: merge(resolvers, movieResolvers, actorResolvers)
+  typeDefs: [Types, genreTypes, movieTypes, actorTypes, userTypes, dateTypes],
+  resolvers: merge(movieResolvers, actorResolvers, userResolvers)
 });

@@ -6,8 +6,13 @@ mongoose.connect(links.development, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-
-const server = new ApolloServer({ schema: schemaGraphql });
+mongoose.set("useCreateIndex", true);
+const server = new ApolloServer({
+  schema: schemaGraphql,
+  context({ req }) {
+    console.log(req.headers.authorization, "AUTH");
+  }
+});
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
