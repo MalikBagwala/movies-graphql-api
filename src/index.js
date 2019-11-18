@@ -1,5 +1,5 @@
-const { ApolloServer } = require("apollo-server");
-const mongoose = require("mongoose");
+import { ApolloServer } from "apollo-server";
+import mongoose from "mongoose";
 import schemaGraphql from "./schema.graphql";
 import links from "./links";
 mongoose.connect(links.development, {
