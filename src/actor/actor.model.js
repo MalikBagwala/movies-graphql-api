@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
-const actorSchema = new mongoose.Schema({
+const actorSchema = new Schema({
   firstName: {
     type: String,
     minlength: 2,
@@ -20,6 +20,6 @@ const actorSchema = new mongoose.Schema({
   }
 });
 
-const Actor = mongoose.model("Actor", actorSchema);
+const Actor = model("Actor", actorSchema);
 
 export default Actor;

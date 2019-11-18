@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const movieSchema = new Schema({
   title: {
@@ -33,6 +33,6 @@ const movieSchema = new Schema({
 
 movieSchema.index({ title: "text", year: "text" });
 
-const Movie = mongoose.model("Movie", movieSchema);
+const Movie = model("Movie", movieSchema);
 
 export default Movie;
