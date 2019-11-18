@@ -2,6 +2,7 @@ import { gql } from "apollo-server";
 import { makeExecutableSchema } from "graphql-tools";
 import { merge } from "lodash";
 import Actor from "./actor/actor.model";
+import actorResolvers from "./actor/actor.resolvers";
 import actorTypes from "./actor/actor.types";
 import Genre from "./genre/genre.model";
 import genreTypes from "./genre/genre.types";
@@ -91,5 +92,5 @@ const resolvers = {
 };
 export default makeExecutableSchema({
   typeDefs: [Query, genreTypes, movieTypes, actorTypes],
-  resolvers: merge(resolvers, movieResolvers)
+  resolvers: merge(resolvers, movieResolvers, actorResolvers)
 });
