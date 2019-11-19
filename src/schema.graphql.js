@@ -9,11 +9,7 @@ import movieTypes from "./movies/movie.types";
 import { dateTypes } from "./scalars/date.scalar";
 import userResolvers from "./user/user.resolvers";
 import userTypes from "./user/user.types";
-// interface MutationResponse {
-//   code: String!
-//   success: Boolean!
-//   message: String!
-// }
+
 const Types = gql`
   type Query {
     _empty: String

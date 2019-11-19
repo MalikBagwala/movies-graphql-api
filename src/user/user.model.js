@@ -5,23 +5,34 @@ const userSchema = new Schema({
   phoneNumber: {
     type: String,
     unique: [true, "Invalid Phone Number"],
-    required: [true, "Phone Number is Required"],
+    index: true,
+    sparse: true,
     validate: {
       validator: v => /\d{5}([- ]*)\d{6}/.test(v),
       message: ph => `${ph} is not a valid phone number`
     }
   },
-  firstName: {
+  username: {
     type: String,
     minlength: 2,
     maxlength: 30,
-    required: true
+    unique: [true, "Invalid Username"],
+    index: true,
+    sparse: true
+  },
+  password: {
+    type: String,
+    select: false
+  },
+  firstName: {
+    type: String,
+    minlength: 2,
+    maxlength: 30
   },
   lastName: {
     type: String,
     minlength: 2,
-    maxlength: 30,
-    required: false
+    maxlength: 30
   },
   dateOfBirth: {
     type: Date
