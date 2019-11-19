@@ -14,6 +14,7 @@ const movieSchema = new Schema({
   },
   rating: {
     type: Number,
+    default: 0,
     min: 0,
     max: 10
   },
@@ -30,8 +31,6 @@ const movieSchema = new Schema({
     }
   ]
 });
-
-movieSchema.index({ title: "text", year: "text" });
 
 const Movie = model("Movie", movieSchema);
 

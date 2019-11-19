@@ -14,6 +14,7 @@ export default gql`
     title: String
     year: Int
     rating: Float
+    votes: Int
     genres: [GenreType]
     actors: [ActorType]
   }

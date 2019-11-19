@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import { String } from "core-js";
 
 const userSchema = new Schema({
   phoneNumber: {

@@ -9,6 +9,8 @@ import movieTypes from "./movies/movie.types";
 import { dateTypes } from "./scalars/date.scalar";
 import userResolvers from "./user/user.resolvers";
 import userTypes from "./user/user.types";
+import voteTypes from "./vote/vote.types";
+import voteResolvers from "./vote/vote.resolvers";
 
 const Types = gql`
   type Query {
@@ -20,6 +22,14 @@ const Types = gql`
 `;
 
 export default makeExecutableSchema({
-  typeDefs: [Types, genreTypes, movieTypes, actorTypes, userTypes, dateTypes],
-  resolvers: merge(movieResolvers, actorResolvers, userResolvers)
+  typeDefs: [
+    Types,
+    genreTypes,
+    movieTypes,
+    actorTypes,
+    userTypes,
+    dateTypes,
+    voteTypes
+  ],
+  resolvers: merge(movieResolvers, actorResolvers, userResolvers, voteResolvers)
 });

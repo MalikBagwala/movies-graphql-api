@@ -1,5 +1,6 @@
 import Actor from "../actor/actor.model";
 import Genre from "../genre/genre.model";
+import Movie from "./movie.model";
 export default {
   Query: {
     allMovies(_, { first, skip }) {
